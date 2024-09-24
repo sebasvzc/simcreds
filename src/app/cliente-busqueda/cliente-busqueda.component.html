@@ -4,6 +4,7 @@
     <input id="codigo" [(ngModel)]="codigo" name="codigo">
     <button (click)="buscarCliente()">BUSCAR</button>
     <br>
+
     <label for="nombre">Nombre:</label>
     <input id="nombre" [(ngModel)]="nombre" name="nombre" readonly>
     <br>
@@ -13,8 +14,23 @@
       <option value="Recurrente">Recurrente</option>
       <option value="Nuevo">Nuevo</option>
     </select>
+    <br>
+
+    <div *ngIf="ventaKeys.length > 0">
+      <h3>Ventas</h3>
+      <div *ngFor="let key of muestraVentas">
+        <label>{{ key }}:</label>
+        <input [(ngModel)]="ventas[key]" name="venta-{{key}}">
+      </div>
+    </div>
+    
+    <label for="promedio">Promedio:</label>
+    <input id="promedio" [(ngModel)]="promedio" name="promedio" readonly>
+    <br>
+
     <button (click)="guardarCliente()">GUARDAR</button>
   </form>
+
   <p *ngIf="alertGuardado">{{ alertGuardado }}</p>
 </div>
   
