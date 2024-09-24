@@ -6,20 +6,23 @@ import { Observable, of } from 'rxjs';
 })
 export class ClienteService {
 
-  private generarVentas() {
+  private generarVentas(no_vacio: boolean) {
     const ventas: { [key: string]: number } = {};
     const fechaActual = new Date();
-    for (let i = 0; i < 15; i++) {
+    fechaActual.setMonth(fechaActual.getMonth() - 1);
+    for (let i = 0; i < 14; i++) {
       const periodo = `${fechaActual.getFullYear()}${(fechaActual.getMonth() + 1).toString().padStart(2, '0')}`;
-      ventas[periodo] = Math.floor(Math.random() * 10000); 
+      if (!no_vacio) ventas[periodo] = 0;
+      else ventas[periodo] = Math.floor(Math.random() * 10000); 
       fechaActual.setMonth(fechaActual.getMonth() - 1);
     }
     return ventas;
   }
 
   private clientes = [ 
-    { codigo: '123', nombre: 'John Doe' , tipo: 'Recurrente', venta: this.generarVentas()},
-    { codigo: '456', nombre: 'Jane Smith', tipo: 'Nuevo', venta: this.generarVentas() }
+    { codigo: '123', nombre: 'Enrique' , tipo: 'Recurrente', venta: this.generarVentas(true)},
+    { codigo: '456', nombre: 'Pedro', tipo: 'Nuevo', venta: this.generarVentas(true) },
+    { codigo: '234', nombre: 'Gerard', tipo: 'Nuevo', venta: this.generarVentas(false) }
   ];
 
   constructor() { }

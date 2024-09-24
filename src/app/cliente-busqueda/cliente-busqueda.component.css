@@ -1,0 +1,23 @@
+mat-card {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.inline-form {
+    display: flex;
+    align-items: center;
+}
+
+.inline-form mat-form-field {
+    flex: 1;
+    margin-right: 16px;
+}
+
+button[mat-flat-button] {
+    white-space: nowrap;
+}

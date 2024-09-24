@@ -1,36 +1,45 @@
-<div>
-  <form>
-    <label for="codigo">Codigo:</label>
-    <input id="codigo" [(ngModel)]="codigo" name="codigo">
-    <button (click)="buscarCliente()">BUSCAR</button>
-    <br>
+<mat-card>
+    <form>
+        <div class="inline-form">
+            <mat-form-field appearance="fill">
+                <mat-label>Código</mat-label>
+                <input matInput id="codigo" [(ngModel)]="codigo" name="codigo">
+            </mat-form-field>
 
-    <label for="nombre">Nombre:</label>
-    <input id="nombre" [(ngModel)]="nombre" name="nombre" readonly>
-    <br>
+            <button mat-flat-button color="primary" (click)="buscarCliente()">BUSCAR</button>
+        </div>
 
-    <label for="tipo">Tipo:</label>
-    <select id="tipo" [(ngModel)]="clienteTipo" name="clienteTipo">
-      <option value="Recurrente">Recurrente</option>
-      <option value="Nuevo">Nuevo</option>
-    </select>
-    <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input [disabled]=true matInput id="nombre" [(ngModel)]="nombre" name="nombre" readonly>
+        </mat-form-field>
 
-    <div *ngIf="ventaKeys.length > 0">
-      <h3>Ventas</h3>
-      <div *ngFor="let key of muestraVentas">
-        <label>{{ key }}:</label>
-        <input [(ngModel)]="ventas[key]" name="venta-{{key}}">
-      </div>
-    </div>
-    
-    <label for="promedio">Promedio:</label>
-    <input id="promedio" [(ngModel)]="promedio" name="promedio" readonly>
-    <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Tipo</mat-label>
+            <mat-select id="tipo" [(ngModel)]="clienteTipo" name="clienteTipo" (selectionChange)="handleChange()"
+                [disabled]="clienteTipo === 'Recurrente'">
+                <mat-option value="Recurrente">Recurrente</mat-option>
+                <mat-option value="Nuevo" *ngIf="clienteTipo !== 'Recurrente'">Nuevo</mat-option>
+            </mat-select>
+        </mat-form-field>
 
-    <button (click)="guardarCliente()">GUARDAR</button>
-  </form>
+        <div *ngIf="ventaKeys.length > 0">
+            <h6>Ventas</h6>
+            <div *ngFor="let key of muestraVentas">
+                <mat-form-field appearance="fill">
+                    <mat-label>{{ key }}</mat-label>
+                    <input matInput [(ngModel)]="ventas[key]" name="venta-{{key}}" (ngModelChange)="actPromedio()">
+                </mat-form-field>
+            </div>
 
-  <p *ngIf="alertGuardado">{{ alertGuardado }}</p>
-</div>
-  
+            <h6>Promedio</h6>
+            <mat-form-field appearance="fill">
+                <input [disabled]=true matInput id="promedio" [(ngModel)]="promedio" name="promedio" readonly>
+            </mat-form-field>
+
+            <button mat-flat-button extended (click)="guardarCliente()">GUARDAR</button>
+        </div>
+    </form>
+
+    <p *ngIf="alertGuardado">{{ alertGuardado }}</p>
+</mat-card>
